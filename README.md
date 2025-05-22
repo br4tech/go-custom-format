@@ -128,11 +128,11 @@ No código, você encontrará:
 Onde as tags de validação padrão e customizadas são aplicadas.
 
 ```go
-type CreateProductRequest struct {
-    Name        string  `json:"name" validate:"required,min=3,max=100"`
-    Description string  `json:"description" validate:"required,min=10,max=500"`
-    Price       float64 `json:"price" validate:"required,gt=0"`
+type ProductDTO struct {
     SKU         string  `json:"sku" validate:"required,skuformat"` // <<--- Aqui está a validação customizada
+    Name        string  `json:"name" validate:"required,min=3,max=100"`
+    Price       float64 `json:"price" validate:"required,gt=0"`
+    StockLevel int  `json:"stock_level" validate:"required,gt=0"`
 }
 ```
 
@@ -144,7 +144,7 @@ Uma função que implementa a lógica da sua regra de validação (skuformat, po
 func validateSKUFormat(fl validator.FieldLevel) bool {
     sku := fl.Field().String()
     // Implemente sua lógica de regex ou qualquer outra aqui
-    match, _ := regexp.MatchString("^[A-Z]{3}-[A-Z]{1}-[0-9]{3}$", sku)
+    ...
     return match
 }
 ```
