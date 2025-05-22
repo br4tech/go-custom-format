@@ -1,5 +1,3 @@
-# go-custom-format
-
 # 📦 GoCustomFormat-ProductAPI
 
 Uma aplicação de estudo em Go, que demonstra a arquitetura hexagonal na criação e consulta de produtos, com foco especial na implementação de validação de requisições utilizando *custom validators*. A aplicação é conteinerizada com Docker e Docker Compose, facilitando o ambiente de desenvolvimento e deploy.
