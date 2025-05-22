@@ -83,6 +83,7 @@ O ponto chave deste projeto é a demonstração de como estender e usar o pacote
     "price": 1299.99,
     "sku": "SPH-X-001"
 }
+```
 
 # Validação de SKU (Exemplo de Custom Validation)
 
@@ -108,6 +109,7 @@ Se o SKU for inválido, a API retornará um erro **400 Bad Request** com uma men
   "sku": "SPH-X-001",
   "created_at": "2023-10-27T10:00:00Z"
 }
+```
 
 Resposta de Erro (Produto Não Encontrado)
 
@@ -115,7 +117,7 @@ Resposta de Erro (Produto Não Encontrado)
 {
   "message": "Product with SKU SPH-X-002 not found."
 }
-
+```
 
 ## 📚 Como o Custom Validator é Implementado
 
@@ -132,6 +134,7 @@ type CreateProductRequest struct {
     Price       float64 `json:"price" validate:"required,gt=0"`
     SKU         string  `json:"sku" validate:"required,skuformat"` // <<--- Aqui está a validação customizada
 }
+```
 
 ### 2. Função de validação customizada
 Uma função que implementa a lógica da sua regra de validação (skuformat, por exemplo).
@@ -144,6 +147,7 @@ func validateSKUFormat(fl validator.FieldLevel) bool {
     match, _ := regexp.MatchString("^[A-Z]{3}-[A-Z]{1}-[0-9]{3}$", sku)
     return match
 }
+```
 
 ### 3. Registro do validador customizado
 Onde você registra sua função de validação com a instância do go-playground/validator.
@@ -152,6 +156,7 @@ Onde você registra sua função de validação com a instância do go-playgroun
 // Exemplo de como registrar (geralmente feito na inicialização da aplicação)
 validate := validator.New()
 validate.RegisterValidation("skuformat", validateSKUFormat)
+```
 
 4. Uso do validador no handler
 Antes de processar a requisição, o validate.Struct() é chamado para aplicar as validações.
